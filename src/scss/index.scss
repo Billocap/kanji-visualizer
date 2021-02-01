@@ -1,0 +1,322 @@
+@use 'lib/colors';
+@use 'lib/mixins';
+
+button, input {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    overflow: auto;
+}
+
+.mode-button {
+    position: absolute;
+    top: 0px;
+    color: colors.$normal;
+    border: solid 1px transparent;
+    transition: background 0.5s, border 0.5s;
+    @include mixins.full-box(30px);
+    @include mixins.font-size(20px);
+
+    &.right {
+        right: 0px;
+        border-radius: 10px 0px 0px 10px;
+    }
+
+    &.left {
+        left: 0px;
+        border-radius: 0px 10px 10px 0px;
+    }
+
+    &:hover {
+        border-color: colors.$normal;
+        background: colors.$background;
+    }
+}
+
+#app {
+    @include mixins.flex-box(row);
+
+    #search-menu {
+        @include mixins.full-flex-box(column, 300px);
+        flex-shrink: 0;
+        background: colors.$dark-purple;
+        color: colors.$white;
+        overflow: hidden;
+
+        h1 {
+            @include mixins.header(40px);
+        }
+
+        #search-modes {
+            @include mixins.full-flex-box(row);
+            position: relative;
+        }
+    }
+
+    #loading-screen {
+        @include mixins.full-flex-box(row);
+        @include mixins.font-size(80px);
+        color: colors.$background;
+        font-weight: bold;
+        justify-content: center;
+        align-items: center;
+        box-shadow: inset rgb(218, 218, 218) 0px 0px 200px 0px;
+        background: colors.$white;
+    }
+
+    main {
+        overflow-y: auto;
+        @include mixins.full-box();
+    }
+}
+
+.search-mode {
+    @include mixins.full-box();
+    position: relative;
+    flex-shrink: 0;
+
+    h2 {
+        @include mixins.header(20px, 28px);
+    }
+
+    ul {
+        overflow: auto;
+
+        li, li button {
+            width: 100%;
+        }
+            
+        li button {
+            @include mixins.font-size(18px);
+            width: 100%;
+            padding: 7px;
+            color: colors.$normal;
+            border: {
+                top: solid 1px transparent;
+                bottom: solid 1px transparent;
+            };
+
+            &#selected {
+                background-color: colors.$background;
+                border: {
+                    top-color: colors.$stroke-color;
+                    bottom-color: colors.$stroke-color;
+                };
+            }
+
+            &:hover, &#selected {
+                color: colors.$special;
+            }
+        }
+    }
+
+    input, #search-cont, .search-button {
+        display: block;
+        width: 70%;
+        margin: 0 auto;
+        text-align: center;
+        background: colors.$background;
+        border: 1px solid colors.$stroke-color;
+        color: colors.$special;
+        overflow: auto;
+        border-radius: 0px 0px 10px 10px;
+        padding: 7px;
+        @include mixins.font-size(12px);
+    }
+
+    #search-cont {
+        padding: 0;
+    }
+
+    #search-cont, .search-button{
+        border-top-color: transparent;
+    }
+
+    .search-button.half {
+        width: 50%;
+        float: left;
+        border-color: transparent;
+        border-radius: 0;
+
+        &.right {
+            border-left-color: colors.$normal;
+        }
+    }
+
+    input {
+        border-radius: 10px 10px 0px 0px;
+        font-weight: bold;
+
+        &::placeholder {
+            color: colors.$normal;
+        }
+    }
+}
+
+.kanji-list {
+    display: none;
+
+    h1 {
+        width: 100%;
+        background: colors.$gray;
+        padding: 15px;
+        @include mixins.font-size(18px);
+        color: colors.$black;
+    }
+
+    ul {
+        overflow: auto;
+        @include mixins.flex-box(row);
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+
+        li button {
+            @include mixins.tab(100px, 45px);
+            margin: 10px;
+        }
+    }
+}
+
+#kanji-view {
+    display: none;
+    @include mixins.full-box();
+
+    #kanji-info {
+        width: 100%;
+        padding: 50px;
+        @include mixins.center-box(row);
+
+        #kanji {
+            position: relative;
+            margin-right: 50px;
+            @include mixins.tab(280px, 140px);
+            @include mixins.center-box(column);
+
+            #code {
+                position: absolute;
+                bottom: 30px;
+                @include mixins.font-size(28px);
+            }
+        }
+
+        #info {
+            display: grid;
+
+            .header {
+                grid-column: 1 / 4;
+                @include mixins.font-size(130px);
+                font-weight: bolder;
+                color: colors.$black;
+                overflow: hidden;
+            }
+
+            .info-text {
+                margin: 10px 20px;
+                @include mixins.font-size(24px);
+                font-weight: bold;
+                color: colors.$purple;
+            }
+        }
+    }
+
+    #kanji-grammar {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        padding: 10px;
+
+        .grammar-block {
+            border: 1px solid colors.$purple;
+            margin: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            min-height: 200px;
+
+            span {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                background: colors.$light-purple;
+                border-bottom: 1px solid colors.$purple;
+                color: colors.$purple;
+                font-weight: bold;
+                @include mixins.font-size(14px);
+            }
+
+            ul li {
+                float: left;
+                margin: 7px 12px;
+                color: colors.$black;
+                font-weight: bold;
+            }
+
+            .kana {
+                padding: 5px 10px;
+                font-weight: bold;
+                color: colors.$purple;
+                border: solid 1px colors.$purple;
+                background: colors.$light-purple;
+                border-radius: 7px;
+                @include mixins.font-size(14px);
+            }
+        }
+    }
+
+    #kanji-words {
+        width: 100%;
+        padding: 20px;
+
+        & > span {
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: colors.$purple;
+            padding: 10px;
+            border-bottom: solid 1px colors.$purple;
+            @include mixins.font-size(28px);
+        }
+
+        button {
+            width: 100%;
+            color: colors.$black;
+        }
+    }
+}
+
+.word {
+    margin: 10px;
+
+    .variant-list, .glosses-list{
+        width: 100%;
+
+        li{
+            float: left;
+            margin: 5px 7px;
+            @include mixins.flex-box(column);
+
+            .variant {
+                font-weight: bold;
+                color: colors.$background;
+                @include mixins.font-size(22px);
+            }
+
+            .info {
+                font-weight: bold;
+                color: colors.$special;
+                @include mixins.font-size(14px);
+            }
+        }
+
+        .gloss {
+            color: colors.$black;
+            @include mixins.font-size(16px);
+        }
+    }
+}
