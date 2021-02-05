@@ -8,6 +8,8 @@ import placeholder from 'lib/placeholder';
 
 import api from 'lib/api';
 
+import Logo from 'assets/logo-github.svg';
+
 function App() {
     const [list, setList] = useState(placeholder.gradeList);
     const [kanji, setKanji] = useState(placeholder.kanji);
@@ -29,6 +31,9 @@ function App() {
         <div id="app">
             <SearchMenu setKanji={setKanji} list={list} setList={setList}/>
             <MainScreen kanjiBundle={{kanji, setKanji}} listBundle={{list, setList}}/>
+            <a id="repo" href="https://github.com/Billocap/kanji-visualizer" target="_blank">
+                <img src={Logo} alt="GitHub Logo" width="30" height="30"/>
+            </a>
         </div>
     );
 }

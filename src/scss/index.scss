@@ -41,6 +41,12 @@ ul {
 #app {
     @include mixins.flex-box(row);
 
+    #repo {
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+    }
+
     #search-menu {
         @include mixins.full-flex-box(column, 300px);
         flex-shrink: 0;
