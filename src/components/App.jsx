@@ -31,7 +31,7 @@ function App() {
         <div id="app">
             <SearchMenu setKanji={setKanji} list={list} setList={setList}/>
             <MainScreen kanjiBundle={{kanji, setKanji}} listBundle={{list, setList}}/>
-            <a id="repo" rel="noreferer" href="https://github.com/Billocap/kanji-visualizer" target="_blank">
+            <a id="repo" rel="noreferrer" href="https://github.com/Billocap/kanji-visualizer" target="_blank">
                 <img src={Logo} alt="GitHub Logo" width="30" height="30"/>
             </a>
         </div>
